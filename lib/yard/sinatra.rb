@@ -1,5 +1,29 @@
 require "yard"
 
+
+# Overwriting the DSLHandler module in YARD.
+# The DSLHandler checks for "dsl-like" syntax by checking the method_name from the statement
+# that is being currently executed.
+# Basically, the method is checked if its in proper name. If not, an error is raised.
+# This can be seen at YARD::Handlers::Ruby::DSLHandlerMethods#method_name. 
+
+# this is a hack to remove the checking.
+
+module YARD
+  module Handlers
+    module Ruby
+      class DSLHandler < Base
+        include DSLHandlerMethods
+      end
+      module DSLHandlerMethods
+        def method_name
+          name = call_params.first || ""
+        end
+      end
+    end
+  end
+end
+
 module YARD
 
   module Sinatra
