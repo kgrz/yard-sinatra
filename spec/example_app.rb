@@ -1,8 +1,12 @@
 require "sinatra/base"
-require "user"
+
+class User
+  def initialize
+  end
+end
 
 class ExampleApp < Sinatra::Base
-
+  some_user = User.new
   # Settings for a given user
   #
   # @param [User] some user
